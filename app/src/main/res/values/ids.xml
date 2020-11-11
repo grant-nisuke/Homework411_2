@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="cTitle" type="id"/>
+    <item name="date" type="id"/>
+    <item name="input" type="id"/>
+    <item name="next_btn" type="id"/>
+    <item name="status" type="id"/>
+</resources>
