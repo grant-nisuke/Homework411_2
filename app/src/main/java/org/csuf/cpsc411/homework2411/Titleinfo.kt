@@ -26,7 +26,7 @@ class Titleinfo(val ctx : Context) {
         lbParams.weight = 20.0f
         lbParams.bottomMargin = 5
         //
-        var lbl = TextView(ctx)
+        val lbl = TextView(ctx)
         lbl.text = "      Please Enter Claim Information          "
         lbl.gravity = Gravity.CENTER
         lbl.textSize = 25.00f

@@ -24,6 +24,7 @@ class JointStatus(val ctx : Context) {
         val colGenerator = StatusLabelGenerator(ctx)
         var lblView = colGenerator.generate()
         lcParams.weight = 2.0F
+        lcParams.width = 0
         layoutObj.addView(lblView, lcParams)
         //
         val valGenerator = StatusValueGenerator(ctx)
@@ -34,6 +35,7 @@ class JointStatus(val ctx : Context) {
         lblView = valGenerator.generate()
         vcParams.marginStart = 5
         vcParams.weight = 4F
+        vcParams.width = 0
         layoutObj.addView(lblView, vcParams)
         return layoutObj
     }

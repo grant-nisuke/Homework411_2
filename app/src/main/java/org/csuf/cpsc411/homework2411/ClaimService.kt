@@ -1,6 +1,7 @@
 package org.csuf.cpsc411.homework2411
 
 import android.util.Log
+import android.widget.EditText
 import android.widget.TextView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -16,9 +17,9 @@ class ClaimService(val ctx: CustomActivity) {
         lateinit var claimList : MutableList<Claim>
         var currentIndex : Int = 0
 
-        fun isLastObject() : Boolean {
-            if (currentIndex == claimList.count()-1) return true
-            return false
+
+        fun lastOne() : Claim {
+            return claimList[claimList.count()-1]
         }
 
         inner class GetAllServiceRespHandler : AsyncHttpResponseHandler(){
@@ -34,7 +35,6 @@ class ClaimService(val ctx: CustomActivity) {
                 val claimListType: Type = object : TypeToken<List<Claim>>(){}.type
                 claimList = gson.fromJson(String(responseBody), claimListType)
                 Log.d("Claim Service", "The Person List: ${claimList}"  )
-                //ctx.refreshScreen()
             }
 
             override fun onFailure(
@@ -43,7 +43,7 @@ class ClaimService(val ctx: CustomActivity) {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
-                TODO("Not yet implemented")
+                Log.d("GetAllService", "Failed")
             }
 
         }
@@ -57,7 +57,7 @@ class ClaimService(val ctx: CustomActivity) {
                 if(responseBody != null) {
                     val respStr = String(responseBody)
                     Log.d("Claim Service", "The add Service response : ${respStr}")
-                    //ctx.statusMessage("morgan")
+                    ctx.refreshStatusTrue()
                 }
             }
 
@@ -67,10 +67,11 @@ class ClaimService(val ctx: CustomActivity) {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
-                if(responseBody != null) {
-                    val respStr = String(responseBody)
-                    Log.d("Claim Service", "The add Service response : ${respStr}")
-                }
+                //if(responseBody != null) {
+                //val respStr = String(responseBody)
+                //    Log.d("Claim Service", "The add Service response : ${respStr}")
+                    ctx.refreshStatusFalse()
+               // }
             }
 
         }
@@ -90,9 +91,9 @@ class ClaimService(val ctx: CustomActivity) {
             //var pList : List<Person> = mutableListOf()
             // Call Http
             val client = AsyncHttpClient()
-            val requestUrl = "http://192.168.56.1:8080/PersonService/getAll"
+            val requestUrl = "http://192.168.56.1:8080/ClaimService/getAll"
             //
-            Log.d("Person Service", "About Sending the Http Request.")
+            Log.d("Claim Service", "About Sending the Http Request.")
             client.get(requestUrl, GetAllServiceRespHandler())
         }
 }

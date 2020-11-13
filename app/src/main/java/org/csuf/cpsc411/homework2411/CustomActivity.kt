@@ -12,37 +12,34 @@ import com.loopj.android.http.AsyncHttpClient.log
 class CustomActivity : AppCompatActivity() {
     lateinit var cList : MutableList<Claim>
     lateinit var cService : ClaimService
-    lateinit var shMessage : String
+
+    fun refreshStatusTrue() {
+        val statusView : TextView = findViewById(R.id.status)
+        statusView.setText("Claim: successfully created")
+    }
+
+    fun refreshStatusFalse() {
+        val statusView : TextView = findViewById(R.id.status)
+        statusView.setText("Claim: unsuccessfully created")
+    }
 
     fun refreshScreen() {
         //
-        Log.d("Person Service", "Refreshing the Screen.")
         val titleView : EditText = findViewById(R.id.cTitle)
         val dateView : EditText = findViewById(R.id.date)
-        val statusView : TextView = findViewById(R.id.status)
 
         val titleI = titleView.getText().toString()
         val dateI = dateView.getText().toString()
         var cObj = Claim("0", titleI, dateI, false)
-        if(titleI != "" && dateI != "") {
-            cService = ClaimService(this)
-            cService.addClaim(cObj)
 
-            titleView.getText().clear()
-            dateView.getText().clear()
-            statusView.setText(shMessage)
-        }
-        //else {
-        //    statusView.setText("Claim unsuccessfully created")
-        //}
+        cService = ClaimService(this)
+        cService.addClaim(cObj)
+        titleView.getText().clear()
+        dateView.getText().clear()
 
         //enable/disable the button
         //val nBtn : Button = findViewById(R.id.input)
         //nBtn.setEnabled()
-    }
-
-    fun statusMessage(sMessage : String) {
-        shMessage = sMessage
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +51,9 @@ class CustomActivity : AppCompatActivity() {
         //
         val bView : Button = findViewById(R.id.input)
         bView.setOnClickListener {
-            //get the next Person object
             refreshScreen()
         }
+        //cService = ClaimService(this)
+        //cService.getAll()
     }
 }

@@ -29,6 +29,7 @@ class StatusValueGenerator(val ctx : Context) {
 
         value.textSize = 25.00f
         value.setBackgroundColor(Color.WHITE)
+        //value.setText("THHHHHHHHHHHHHHH")
         layoutObj.addView(value, vParams)
         return layoutObj
     }
